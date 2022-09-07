@@ -1,6 +1,9 @@
 # Accumulator 
 
-C++ implementation of accumulator class.
+C++ implementation of accumulator classes: Accumulator and UniqueAccumulator:
+
+* *Accumulator* - accumulates and summarizes values.
+* *UniqueAccumulator* - the same, but summarizes only unique values
 
 Usage:
 ```

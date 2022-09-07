@@ -1,9 +1,6 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.14)
 PROJECT(Project)
 
-# Target 
-SET(_target "AccumulatorTest")
-
 # Main props
 SET(CMAKE_CXX_STANDARD 17)
 SET(CMAKE_CXX_FLAGS_DEBUG_INIT "-Wall -O0")
@@ -24,9 +21,13 @@ FetchContent_MakeAvailable(googletest)
    
 ENABLE_TESTING()
 
+# Target 
+SET(_target "AccumulatorTest")
+
 ADD_EXECUTABLE(
   ${_target}
   AccumulatorTest.cpp
+  UniqueAccumulatorTest.cpp
 )
 TARGET_LINK_LIBRARIES(
   ${_target}

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <set>
 #include <memory>
 
 namespace Accumulator {
@@ -49,6 +50,59 @@ namespace Accumulator {
         }
         return in;
     }
-    
+
+   template <typename T>
+   class UniqueAccumulator
+   {
+        private:
+            // Accumulated sum
+            T sum;
+            // Index for unique values
+            std::set<T> index;
+        public:
+            // Empty accumulator
+            bool Empty() { return index.empty(); }
+
+            // Returns value or runtime error
+            T Value() 
+            {
+                if (Empty())
+                {
+                    throw std::runtime_error("Acuumulator is empty!");
+                }
+                return sum;
+            }
+
+            // Adds external value to accumulated internal value
+            // If internal value is empty, external value will be the first value
+            void Add(T value)
+            {
+                if (index.find(value) == index.end())
+                {
+                    if(Empty())
+                    {
+                        sum = value;
+                    }
+                    else
+                    {
+                        sum = sum + value;
+                    }
+
+                    index.insert(value);  
+                }
+            }
+
+   }; 
+
+    // Stream output to UniqueAccumulator
+    template <typename T> 
+    std::istream& operator>>(std::istream& in, UniqueAccumulator<T>& acc)
+    {
+        T tmp;
+        if (in >> tmp) {
+            acc.Add(tmp);
+        }
+        return in;
+    }
 
 }
