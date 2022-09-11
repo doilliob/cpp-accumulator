@@ -6,6 +6,10 @@ SET(CMAKE_CXX_STANDARD 17)
 SET(CMAKE_CXX_FLAGS_DEBUG_INIT "-Wall -O0")
 SET(CMAKE_CXX_FLAGS_RELEASE_INIT "-Wall -O3")
 
+# Main script
+SET(_target "Main")
+ADD_EXECUTABLE(${_target}  main.cpp)
+
 # =================================
 # Google test
 # =================================
@@ -21,18 +25,18 @@ FetchContent_MakeAvailable(googletest)
    
 ENABLE_TESTING()
 
-# Target 
-SET(_target "AccumulatorTest")
+# Tests
+SET(_test "AccumulatorTest")
 
 ADD_EXECUTABLE(
-  ${_target}
+  ${_test}
   AccumulatorTest.cpp
-  UniqueAccumulatorTest.cpp
 )
+
 TARGET_LINK_LIBRARIES(
-  ${_target}
+  ${_test}
   GTest::gtest_main
 )
 
 INCLUDE(GoogleTest)
-gtest_discover_tests(${_target})
+gtest_discover_tests(${_test})

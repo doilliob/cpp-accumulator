@@ -42,7 +42,7 @@ TEST(AccumulatorTest, StreamOperator)
     stringstream s(first);
 
     s >> acc1;
-    acc2.Add(first);
+    acc2 + first;
 
     EXPECT_EQ(first, acc1.Value());
     EXPECT_EQ(first, acc2.Value());
@@ -61,6 +61,18 @@ TEST(AccumulatorTest, StringValueFileTest)
     EXPECT_EQ("firstsecond", acc.Value());
 }
 
+TEST(AccumulatorTest, UniqueStringValueTest) 
+{
+    stringstream s;
+    s << "A" << endl
+      << "B" << endl
+      << "B" << endl
+      << "C" << endl;
+    Accumulator::Accumulator<string> acc;
+    while (s >> acc) {}
+    EXPECT_EQ("ABC", acc.Value());
+}
+
 TEST(AccumulatorTest, IntValueFileTest) 
 {
     const string filename = "int_temp.txt";
@@ -70,7 +82,10 @@ TEST(AccumulatorTest, IntValueFileTest)
     }
     Accumulator::Accumulator<int> acc;
     ifstream in(filename);
-    while (in >> acc) {}
+    int i;
+    while (in >> i) {
+        acc + i;
+    }
     EXPECT_EQ(3, acc.Value());
 }
 
